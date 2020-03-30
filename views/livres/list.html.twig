@@ -4,7 +4,7 @@
 
 {% block contenu %}
 <table class="table text-center monTableau" id="tableauLivre">
-            
+
     <thead>
         <tr class="table-dark titresColonne">
             <th>Titres</th>
@@ -15,34 +15,48 @@
     </thead>
 
     <tbody id="tBody">
+
+        {% for book in books %}
         <tr>
-            <td><a href="/livres/algo">algo</a></td>
-            <td>didier</td>
-            <td>200</td>
+            <td><a href="/livres/{{book._id}}">{{book.nom}}</a></td>
+            <td>{{book.auteur}}</td>
+            <td>{{book.nbrPages}}</td>
             <td>
                 <a href="" class="btn btn-warning">modifier</a>
-                <a href=""  class="btn btn-danger">supprimer</a>
+                <form action="/lives/delete/{{book.id}}" method="POST"
+                    onSubmit="return confirm('etes vous sur de la suppression ?')">
+                    <button class="btn btn-danger" type="submit"> supprimer </button>
+                </form>
             </td>
         </tr>
-        <tr>
-            <td><a href="/livres/algotheme">algotheme</a></td>
-            <td>didier michel</td>
-            <td>300</td>
-            <td>
-                <a href="" class="btn btn-warning">modifier</a>
-                <a href=""  class="btn btn-danger">supprimer</a>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="/livres/la grotte">la grotte</a></td>
-            <td>didier raoul</td>
-            <td>2040</td>
-            <td>
-                <a href="" class="btn btn-warning">modifier</a>
-                <a href=""  class="btn btn-danger">supprimer</a>
-            </td>
-        </tr>
+        {% endfor %}
+
     </tbody>
 </table>
-<a href="" class="btn btn-success d-block " >Ajouter Livre</a>
+<button class="btn btn-primary w-100" onClick="afficherForm()">ajouter Livres</button>
+
+
+<form action="" class="d-none" id="ajoutForm" method="POST">
+    <fieldset>
+        <legend> Creation d'un livre</legend>
+        <div class="form-group">
+            <label>Titres</label>
+            <input type="text" class="form-control" id="titre" name="nom" value="">
+        </div>
+        <div class="form-group">
+            <label>auteurs</label>
+            <input type="text" class="form-control" id="auteur" name="auteur" value="">
+        </div>
+        <div class="form-group">
+            <label>nombre de pages</label>
+            <input type="number" class="form-control" id="nbre" name="nbrPages" value="">
+        </div>
+        <div class="form-group">
+            <label>description</label>
+            <input type="text" class="form-control" id="descr" name="description" value="">
+        </div>
+        <button id="validAjout" class="btn btn-primary" type="submit">Valider</button>
+    </fieldset>
+</form>
+<script src="/javascript/ajoutLivre.js"></script>
 {% endblock %}
