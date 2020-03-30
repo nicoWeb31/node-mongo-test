@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+{% block titre %}Listes des livres{% endblock %}
+
+
+{% block contenu %}
+<table class="table text-center monTableau" id="tableauLivre">
+            
+    <thead>
+        <tr class="table-dark titresColonne">
+            <th>Titres</th>
+            <th>Auteur</th>
+            <th>Nbre de pages</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="tBody">
+        <tr>
+            <td><a href="/livres/algo">algo</a></td>
+            <td>didier</td>
+            <td>200</td>
+            <td>
+                <a href="" class="btn btn-warning">modifier</a>
+                <a href=""  class="btn btn-danger">supprimer</a>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/livres/algotheme">algotheme</a></td>
+            <td>didier michel</td>
+            <td>300</td>
+            <td>
+                <a href="" class="btn btn-warning">modifier</a>
+                <a href=""  class="btn btn-danger">supprimer</a>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/livres/la grotte">la grotte</a></td>
+            <td>didier raoul</td>
+            <td>2040</td>
+            <td>
+                <a href="" class="btn btn-warning">modifier</a>
+                <a href=""  class="btn btn-danger">supprimer</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a href="" class="btn btn-success d-block " >Ajouter Livre</a>
+{% endblock %}

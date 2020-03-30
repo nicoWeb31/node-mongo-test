@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block titre %}Livre {{nom}} {% endblock %}
+
+{% block contenu %}
+<div class="row m-2">
+    <div class="col-6">
+        <h2>Informations</h2>
+        <div>Author : </div>
+        <div>nbre de pages : </div>
+        <img src="https://picsum.photos/200/200" alt="">
+    </div>
+    <div class="col-6">
+        <h2>resumés du Livre:</h2>
+        <div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eligendi, commodi quos rerum unde iste maxime facere corporis maiores debitis suscipit. Enim, fugit? Aut mollitia accusantium quo, cupiditate est debitis.</div>
+    </div>
+</div>
+{% endblock %}

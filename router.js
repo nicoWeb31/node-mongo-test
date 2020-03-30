@@ -9,17 +9,24 @@ router.get("/test",(req,rep)=>{
     rep.end('message recue');
 });
 
+router.get("/livres",(req,rep)=>{
+
+    rep.render("livres/list.html.twig");
+    
+});
+
+router.get("/livres/:nom",(req,rep)=>{
+
+    rep.render("livres/OneLivre.html.twig",{ 'nom':req.params.nom});
+    
+});
+
 
 router.get("/",(req,rep)=>{
     console.log("demande recu avec la methode get sur l'url /");
     rep.render("accueil.html.twig");
 });
 
-
-router.post("/",(req,rep)=>{
-    console.log("demande recu avec le methode post sur l'url /");
-    rep.end('message recue');
-});
 
 //gerer l'erruer 404
 router.use((req,rep,suite)=>{
