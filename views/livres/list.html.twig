@@ -12,6 +12,7 @@
 
     <thead>
         <tr class="table-dark titresColonne">
+            <th>Images</th>
             <th>Titres</th>
             <th>Auteur</th>
             <th>Nbre de pages</th>
@@ -23,6 +24,7 @@
 
         {% for book in books %}
         <tr>
+            <td ><img src="/images/{{book.image}}"  alt="" style="width:100px"></td>
             <td><a href="/livres/{{book._id}}">{{book.nom}}</a></td>
             <td>{{book.auteur}}</td>
             <td>{{book.nbrPages}}</td>
@@ -41,7 +43,7 @@
 <button class="btn btn-primary w-100" onClick="afficherForm()">ajouter Livres</button>
 
 
-<form action="" class="d-none" id="ajoutForm" method="POST">
+<form action="" class="d-none" id="ajoutForm" method="POST" enctype="multipart/form-data">
     <fieldset>
         <legend> Creation d'un livre</legend>
         <div class="form-group">
@@ -60,8 +62,14 @@
             <label>description</label>
             <input type="text" class="form-control" id="descr" name="description" value="">
         </div>
+        <div class="form_groupe">
+            <label for="image">Image</label>
+            <input type="file" name="image" class="form-controle-file" id="image">
+
+        </div>
         <button id="validAjout" class="btn btn-primary" type="submit">Valider</button>
     </fieldset>
 </form>
+
 <script src="/javascript/ajoutLivre.js"></script>
 {% endblock %}

@@ -34,13 +34,39 @@
     <button id="validAjout" class="btn btn-primary w-100" type="submit">Valider</button>
 </form>
 
+<form action="/livres/updateImg" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="identifiant" value="{{book._id}}">
+
+    <h2>Image</h2>
+    <div class="row">
+        <div class="col-3">
+            <img src="/images/{{book.image}}" alt="" style="width: 200px">
+        </div>
+        <div class="col-9">
+            <div class="form_groupe">
+                <label for="image">Image</label>
+                <input type="file" name="image" class="form-controle-file" id="image">
+            </div>
+            <button id="validAjout" class="btn btn-primary" type="submit">Valider</button>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
 {% else %}
 <div class="row m-2">
     <div class="col-6">
         <h2>Informations</h2>
         <div>Author :{{book.auteur}} </div>
         <div>nbre de pages : {{book.nbrPages}}</div>
-        <img src="https://picsum.photos/200/200" alt="">
+        <img src="/images/{{book.image}}" alt="" style="width: 150px">
     </div>
     <div class="col-6">
         <h2>resumés du Livre:</h2>

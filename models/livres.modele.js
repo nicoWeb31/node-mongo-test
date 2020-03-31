@@ -5,6 +5,7 @@ const livresShema = mongoose.Schema({
     nom: String,
     auteur: String,
     nbrPages: Number,
-    description: String
+    description: String,
+    image:String
 });
 module.exports = mongoose.model("Livre",livresShema);
