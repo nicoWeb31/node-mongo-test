@@ -2,6 +2,39 @@
 {% block titre %}Livre {{book.nom}} {% endblock %}
 
 {% block contenu %}
+
+{% if isModif %}
+<form action="/livres/modifServ" method="POST">
+    <div class="row m-2">
+        <div class="col-6">
+            <h2>Informations</h2>
+            <div class="form-group">
+                <label>Titres</label>
+                <input type="text" class="form-control" id="titre" name="nom" value=" {{book.nom}} ">
+            </div>
+            <div class="form-group">
+                <label>auteurs</label>
+                <input type="text" class="form-control" id="auteur" name="auteur" value=" {{book.auteur}} ">
+            </div>
+            <div class="form-group">
+                <label>nombre de pages</label>
+                <input type="number" class="form-control" id="nbre" name="nbrPages" value="{{book.nbrPages}}">
+            </div>
+        </div>
+        <div class="col-6">
+            <h2>resumés du Livre:</h2>
+            <div class="form-group">
+                <label>description</label>
+                <input type="text" class="form-control" id="descr" name="description" value=" {{book.description}}">
+            </div>
+            <input type="hidden" name="identifiant" value="{{book._id}}">
+        </div>
+    </div>
+
+    <button id="validAjout" class="btn btn-primary w-100" type="submit">Valider</button>
+</form>
+
+{% else %}
 <div class="row m-2">
     <div class="col-6">
         <h2>Informations</h2>
@@ -13,5 +46,6 @@
         <h2>resumés du Livre:</h2>
         <div>{{book.description}}</div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

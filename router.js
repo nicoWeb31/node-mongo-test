@@ -20,7 +20,7 @@ router.get("/livres",(req,rep)=>{
     livresSchema.find()
     .exec()
     .then(livres => {
-        rep.render("livres/list.html.twig",{books : livres});
+        rep.render("livres/list.html.twig",{books : livres, message : rep.locals.message});
     })
     .catch();    
 });
@@ -36,7 +36,7 @@ router.get("/livres/:id",(req,rep)=>{
     .exec()
     .then(livres =>{
         
-        rep.render("livres/OneLivre.html.twig",{book:livres});
+        rep.render("livres/OneLivre.html.twig",{book:livres, isModif : false});
     })
     .catch(error => {
         console.log('error')
@@ -46,6 +46,47 @@ router.get("/livres/:id",(req,rep)=>{
 });
 
 // =============================================================================
+// modification d'un livre (formulaire)
+// =============================================================================
+
+router.get("/livres/modif/:id",(req,rep)=>{
+    livresSchema.findById(req.params.id)
+    .exec()
+    .then(livres =>{
+        
+        rep.render("livres/OneLivre.html.twig",{book:livres,isModif : true})
+    })
+    .catch(error => {
+        console.log('error')
+    });
+})
+
+// =============================================================================
+// modification d'un livre (soumition du formulaire)
+// =============================================================================
+router.post("/livres/modifServ",(req,rep)=>{
+console.log(req.body)
+const livreUpdate = {
+    nom : req.body.nom,
+    auteur: req.body.auteur,
+    nbrPages : req.body.nbrPages,
+    description: req.body.description
+};
+livresSchema.update({_id : req.body.identifiant},livreUpdate)
+.exec()
+.then(resultat =>{                            //traite la reponse
+    req.session.message = {
+        type : "success",
+        message :"modifier avec succes "
+    }                            
+    rep.redirect("/livres");                   //redirection
+})
+.catch(error =>{
+    console.log(error);                       //traitement des erreurs
+});
+})
+
+// =============================================================================
 // supprimer livre
 // =============================================================================
 router.post("/lives/delete/:id",(req,rep)=>{
@@ -53,6 +94,10 @@ router.post("/lives/delete/:id",(req,rep)=>{
     livresSchema.remove({_id : req.params.id})
     .exec()                                       //execute la requete
     .then(resultat =>{                            //traite la reponse
+        req.session.message = {
+            type : "success",
+            message :"supprimer avec succes "
+        }                            
         rep.redirect("/livres");                   //redirection
     })
     .catch(error =>{
