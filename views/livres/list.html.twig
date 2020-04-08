@@ -26,13 +26,14 @@
         <tr>
             <td ><img src="/images/{{book.image}}"  alt="" style="width:100px"></td>
             <td><a href="/livres/{{book._id}}">{{book.nom}}</a></td>
-            <td>{{book.auteur}}</td>
+            
+            <td><a href="/auteur/{{book.auteur._id}}">{{book.auteur.nom}}-{{book.auteur.prenom}}</a></td>
             <td>{{book.nbrPages}}</td>
             <td>
                 <a href="/livres/modif/{{book.id}}" class="btn btn-warning">modifier</a>
-                <form action="/lives/delete/{{book.id}}" method="POST"
+                <form action="/livres/delete/{{book.id}}" method="POST"
                     onSubmit="return confirm('etes vous sur de la suppression ?')">
-                    <button class="btn btn-danger" type="submit"> supprimer </button>
+                    <input type="submit" class="btn btn-danger" value="supprimer">
                 </form>
             </td>
         </tr>
@@ -52,7 +53,11 @@
         </div>
         <div class="form-group">
             <label>auteurs</label>
-            <input type="text" class="form-control" id="auteur" name="auteur" value="">
+            <select class="form-control" id="auteur" name="auteur">
+                {% for auteur in auteurs %}
+                    <option value="{{auteur._id}}">{{auteur.nom}}-{{auteur.prenom}}</option>
+                {% endfor %}
+            </select>
         </div>
         <div class="form-group">
             <label>nombre de pages</label>

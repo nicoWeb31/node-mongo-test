@@ -38,12 +38,12 @@ const upload = multer({
 });
 
 
-router.get("/livres",livresController.livresShowList);
-router.get("/livres/:id",livresController.livreShowOne);
-router.get("/livres/modif/:id",livresController.ModifLivreForm);
-router.post("/livres/modifServ",livresController.modiLivre );
-router.post("/lives/delete/:id",livresController.supprLivre);
-router.post("/livres/updateImg",upload.single("image"),livresController.modfImg);
-router.post("/livres", upload.single("image"),livresController.recupForm);
+router.get("/",livresController.livresShowList);
+router.get("/:id",livresController.livreShowOne);
+router.get("/modif/:id",livresController.ModifLivreForm);
+router.post("/modifServ",livresController.modiLivre );
+router.post("/delete/:id",livresController.supprLivre);
+router.post("/updateImg",upload.single("image"),livresController.modfImg);
+router.post("/", upload.single("image"),livresController.recupForm);
 
 module.exports = router;

@@ -3,6 +3,8 @@ const serv = express();
 const morgan = require("morgan"); //donne des infos sur les req 
 const routerGlobal = require("./routeurs/global.routeur");
 const routerLivres = require("./routeurs/livres.routeur");
+const routerAuteurs = require("./routeurs/auteurs.routeur");
+
 
 const mongoose = require("mongoose"); //pour mongoodb
 const bodyParser = require("body-parser");
@@ -60,7 +62,8 @@ serv.use((req, rep, suite) => {
     delete req.session.message; //supression de la variable de session
     suite();
 })
-serv.use("/", routerLivres);
+serv.use("/livres/", routerLivres);
+serv.use("/auteur/",routerAuteurs);
 serv.use("/", routerGlobal);
 
 serv.listen(3000);

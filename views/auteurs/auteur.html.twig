@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+{% block titre %} Auteur : {{auteur.nom}}-{{auteur.prenom}}{% endblock %}
+
+{% block contenu %}
+{% if ismodif %}
+
+
+<form action="/auteur/modifValid"  method="POST">
+    <fieldset>
+        <legend> Modification d'un auteur </legend>
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" class="form-control" id="titre" name="nom" value="{{auteur.nom}}">
+        </div>
+
+        <div class="form-group">
+            <label>prénom</label>
+            <input type="text" class="form-control" id="nbre" name="prenom" value="{{auteur.prenom}}">
+        </div>
+        <div class="form-group">
+            <label>age</label>
+            <input type="number" class="form-control" id="age" name="age" value="{{auteur.age}}">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" name="sexe"
+            {% if auteur.sexe %}checked{% endif %}
+            
+            >
+            <label class="form-check-label" for="defaultCheck1">
+            Homme
+            </label>
+        </div>
+        <input type="hidden" name="identifiant" value="{{auteur.id}}" id="">
+        <button id="validAjout" class="btn btn-primary" type="submit">Valider</button>
+    </fieldset>
+</form>
+
+
+
+{% else %}
+    
+
+
+
+
+<h4>Noms :  {{auteur.nom}}</h4>
+<h4>Prenoms : {{auteur.nom}}</h4>
+<h4>Age : {{auteur.age}}</h4>
+<div>
+    <h6>Sexe :</h3>
+    {% if auteur.sexe %}
+    <h6>Homme</h3>
+    {% else %}
+    <h6>Femme</h6>   
+    {% endif %}
+</div>
+
+<h2>Livres</h2>
+
+{% for livre in auteur.livres %}
+        <div class="row">
+            <div class="col-6">
+                <img src="/images/{{livre.image}}" class="img-fluid" alt="">
+        
+            </div>
+            <div class="col-6">
+                
+                <div>Titre : <a href="/livres/{{livre.id}}">{{livre.nom}}</a></div>
+                <div>Titre : {{livre.nbrPages}}</div>
+
+        
+            </div>
+        </div>
+{% endfor %}
+
+
+{% endif %}
+{% endblock %}

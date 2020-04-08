@@ -1,4 +1,5 @@
 const livresSchema = require("../models/livres.modele");
+const auteursSchema = require("../models/auteurs.modele");
 const mongoose = require("mongoose");
 const fs = require("fs");
 
@@ -7,15 +8,26 @@ const fs = require("fs");
 // find all
 // =============================================================================
 exports.livresShowList =(req, rep) => {
-    livresSchema.find()
-        .exec()
-        .then(livres => {
-            rep.render("livres/list.html.twig", {
-                books: livres,
-                message: rep.locals.message
-            });
-        })
-        .catch();
+    auteursSchema.find()    //on recupere la listes des auteurs
+    .exec()
+    .then(auteurs =>{
+
+        livresSchema.find()
+            .populate("auteur")
+            .exec()
+            .then(livres => {
+                rep.render("livres/list.html.twig", {
+                    books: livres, 
+                    auteurs:auteurs,
+                    message: rep.locals.message
+                });
+            })
+            .catch();
+
+    })
+    .catch(error =>{
+        console.log(error);
+    })
 };
 
 // =============================================================================
@@ -23,6 +35,7 @@ exports.livresShowList =(req, rep) => {
 // =============================================================================
 exports.livreShowOne = (req, rep) => {
     livresSchema.findById(req.params.id)
+        .populate("auteur")
         .exec()
         .then(livres => {
 
@@ -40,20 +53,34 @@ exports.livreShowOne = (req, rep) => {
 // modification d'un livre (formulaire)
 // =============================================================================
 exports.ModifLivreForm = (req, rep) => {
-    livresSchema.findById(req.params.id)
-        .exec()
-        .then(livres => {
+    auteursSchema.find()
+    .exec()
+    .then(auteurs => {
 
-            rep.render("livres/OneLivre.html.twig", {
-                book: livres,
-                isModif: true
+        
+        livresSchema.findById(req.params.id)
+            .populate("auteur")
+            .exec()
+            .then(livres => {
+    
+                rep.render("livres/OneLivre.html.twig", {
+                    book: livres,
+                    auteurs : auteurs,
+                    isModif: true
+                })
+                
             })
-        })
-        .catch(error => {
-            console.log('error')
-        });
-};
+            .catch(error => {
+                console.log('error')
+            });
+        
+    })
+    .catch(error => {
+        console.log('error')
+    });
 
+    
+};
 // =============================================================================
 // modification d'un livre (soumition du formulaire)
 // =============================================================================
